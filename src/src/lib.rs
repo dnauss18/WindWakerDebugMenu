@@ -1,13 +1,26 @@
 #![no_std]
-#![feature(asm)]
+#![feature(asm, const_fn)]
 
 #[macro_use]
 extern crate libtww;
 
 use libtww::prelude::*;
 use libtww::system;
-use libtww::Link;
-use libtww::game::Console;
+use libtww::game::{controller, Console};
+
+pub mod flag_editor;
+pub mod main_menu;
+pub mod warp_menu;
+pub mod flag_menu;
+pub mod inventory_menu;
+pub mod cheat_menu;
+pub mod utils;
+pub mod popups;
+
+use utils::*;
+
+pub static mut cursor: usize = 0;
+pub static mut visible: bool = false;
 
 #[no_mangle]
 #[inline(never)]
@@ -15,27 +28,42 @@ pub extern "C" fn init() {
     // Call overriden instruction
     system::cdyl_init_async();
 
-    Console::get().setup();
+    let mut console = Console::get();
+    console.line_count = 32;
+    console.x = 0;
+    console.y = 16;
+    console.font_scale_x *= 1.2;
+    console.font_scale_y *= 1.2;
+    console.background_color.a = 150;
+    console.clear();
 }
 
 #[no_mangle]
 #[inline(never)]
 pub extern "C" fn game_loop() {
-    let link = Link::get();
-    let console = Console::get();
-    let mut lines = &mut console.lines;
+    cheat_menu::apply_cheats();
 
-    let _ = write!(lines[0].begin(), "Heart Pieces:   {}", link.heart_pieces);
-    let _ = write!(lines[1].begin(), "Heart Quarters: {}", link.heart_quarters);
-    let _ = write!(lines[2].begin(), "Rupees:         {}", link.rupees);
-    let _ = write!(lines[3].begin(), "Sword ID:       {:02X}", link.sword_id);
-    let _ = write!(lines[4].begin(), "Shield ID:      {:02X}", link.shield_id);
-    let _ = write!(lines[5].begin(), "Max Magic:      {}", link.max_magic);
-    let _ = write!(lines[6].begin(), "Magic:          {}", link.magic);
+    if unsafe { visible } {
+        match unsafe { menu_state } {
+            MenuState::MainMenu => main_menu::render(),
+            MenuState::WarpMenu => warp_menu::render(),
+            MenuState::FlagMenu => flag_menu::render(),
+            MenuState::InventoryMenu => inventory_menu::render(),
+            MenuState::CheatMenu => cheat_menu::render(),
+        }
+    } else if is_pressed(controller::DPAD_DOWN) && unsafe { !popups::visible } {
+        let console = Console::get();
+        console.visible = true;
+        unsafe { visible = true; }
+    } else {
+        // Only check popups if the Debug Menu is not open
+        popups::check_global_flags();
+    }
 }
 
 #[no_mangle]
 pub extern "C" fn start() {
     game_loop();
     init();
+    let _ = read_controller();
 }

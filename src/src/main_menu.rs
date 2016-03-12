@@ -1,0 +1,81 @@
+use libtww::prelude::*;
+use libtww::Link;
+use libtww::game::{controller, Console, event};
+
+use utils::*;
+use {cursor, visible};
+
+pub fn transition_into() {}
+
+pub fn render() {
+    const MENU_ITEM_COLLISION: usize = 0;
+    const MENU_ITEM_STORAGE: usize = 1;
+    const MENU_ITEM_FLAG: usize = 3;
+    const MENU_ITEM_WARP: usize = 4;
+    const MENU_ITEM_INVENTORY: usize = 5;
+    const MENU_ITEM_CHEAT: usize = 6;
+
+    let console = Console::get();
+
+    let mut lines = &mut console.lines;
+    let _ = write!(lines[0].begin(), "Debug Menu");
+    let _ = write!(lines[1].begin(), "==========");
+
+    let pressed_a = is_pressed(controller::A);
+    let pressed_b = is_pressed(controller::B);
+
+    if pressed_b {
+        console.visible = false;
+        unsafe { visible = false; }
+        return;
+    }
+
+    let contents = ["Collision: ",
+                    "Storage: ",
+                    "",
+                    "Flag Menu",
+                    "Warp Menu",
+                    "Inventory Menu",
+                    "Cheat Menu"];
+
+    move_cursor(contents.len());
+
+    if pressed_a {
+        match unsafe { cursor } {
+            MENU_ITEM_COLLISION => next_collision(),
+            MENU_ITEM_STORAGE => event::set_event_cancel(!event::event_cancel()),
+            MENU_ITEM_FLAG => {
+                transition(MenuState::FlagMenu);
+                return;
+            }
+            MENU_ITEM_WARP => {
+                transition(MenuState::WarpMenu);
+                return;
+            }
+            MENU_ITEM_INVENTORY => {
+                transition(MenuState::InventoryMenu);
+                return;
+            }
+            MENU_ITEM_CHEAT => {
+                transition(MenuState::CheatMenu);
+                return;
+            }
+            _ => {}
+        }
+    }
+
+    for (index, (line, &content)) in lines.into_iter().skip(3).zip(&contents).enumerate() {
+        if index == unsafe { cursor } {
+            let _ = write!(line.begin(), "> ");
+        } else {
+            let _ = write!(line.begin(), "  ");
+        }
+        let _ = write!(line.append(), "{}", content);
+
+        if index == MENU_ITEM_COLLISION {
+            let _ = write!(line.append(), "{}", Link::get_collision());
+        } else if index == MENU_ITEM_STORAGE {
+            let _ = write!(line.append(), "{}", bool_to_text(event::event_cancel()));
+        }
+    }
+}

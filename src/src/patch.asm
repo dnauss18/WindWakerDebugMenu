@@ -6,3 +6,6 @@ bl init
 
 0x8000645C:
 bl game_loop
+
+0x80313b10:
+b read_controller

@@ -49,6 +49,10 @@ impl Assembler {
             let operand = &line[3..];
             let destination = self.resolve_symbol(operand);
             data = build_branch_instruction(self.program_counter, destination, false, true);
+        } else if line.starts_with("b ") {
+            let operand = &line[2..];
+            let destination = self.resolve_symbol(operand);
+            data = build_branch_instruction(self.program_counter, destination, false, false);
         } else if line == "nop" {
             data = 0x60000000;
         } else {
