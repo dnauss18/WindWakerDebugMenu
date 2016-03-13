@@ -20,7 +20,6 @@ static mut buttons_down_last_frame: u16 = 0;
 #[no_mangle]
 #[inline(never)]
 pub extern "C" fn read_controller() -> u32 {
-    let console = Console::get();
     unsafe {
         buttons_down_last_frame = buttons_down;
         buttons_down = system::memory::read(0x803E0CF8);

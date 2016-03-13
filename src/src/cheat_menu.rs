@@ -32,15 +32,17 @@ pub fn scroll_move_cursor(len: usize) {
     }
 }
 
-pub struct Cheat {
-    pub name: &'static str,
-    pub active: bool,
-    pub togglable: bool,
+struct Cheat {
+    id: CheatId,
+    name: &'static str,
+    active: bool,
+    togglable: bool,
 }
 
 impl Cheat {
-    const fn new(name: &'static str, togglable: bool) -> Self {
+    const fn new(id: CheatId, name: &'static str, togglable: bool) -> Self {
         Cheat {
+            id: id,
             name: name,
             active: false,
             togglable: togglable,
@@ -51,20 +53,20 @@ impl Cheat {
 pub fn apply_cheats() {
     let mut link = Link::get();
 
-    for (cheat_id, cheat) in unsafe { cheats.iter().enumerate() } {
+    for cheat in unsafe { &cheats } {
         if cheat.active {
-            match cheat_id {
-                CHEAT_MOON_JUMP => {
+            match cheat.id {
+                MoonJump => {
                     Link::position().y += 175.0;
                 }
-                CHEAT_INVINCIBLE => {
+                Invincible => {
                     link.heart_quarters = link.heart_pieces;
                 }
-                CHEAT_INFINITE_MAGIC => {
+                InfiniteMagic => {
                     link.max_magic = 32;
                     link.magic = link.max_magic;
                 }
-                CHEAT_SWIFT_WIND => {
+                SwiftWind => {
                     let direction = Link::direction();
                     let wind = if direction < 0x1000 || direction > 0xF000 {
                         2
@@ -85,21 +87,36 @@ pub fn apply_cheats() {
                     };
                     system::set_wind(wind);
                 }
-                _ => {}
+                InfiniteAir => {
+                    Link::set_air_meter(900);
+                }
+                FastMovement => {
+                    system::memory::write::<u32>(0x8039830C, 0x40000000);
+                    system::memory::write::<u32>(0x80398310, 0x41000000);
+                }
             }
         }
     }
 }
 
-static mut cheats: [Cheat; 4] = [Cheat::new("Invincible", true),
-                                 Cheat::new("Infinite Magic", true),
-                                 Cheat::new("Swift Wind", true),
-                                 Cheat::new("Moon Jump", false)];
+static mut cheats: [Cheat; 6] = [Cheat::new(Invincible, "Invincible", true),
+                                 Cheat::new(InfiniteMagic, "Infinite Magic", true),
+                                 Cheat::new(InfiniteAir, "Infinite Air", true),
+                                 Cheat::new(SwiftWind, "Swift Wind", true),
+                                 Cheat::new(MoonJump, "Moon Jump", false),
+                                 Cheat::new(FastMovement, "Fast Movement", false)];
 
-const CHEAT_INVINCIBLE: usize = 0;
-const CHEAT_INFINITE_MAGIC: usize = 1;
-const CHEAT_SWIFT_WIND: usize = 2;
-const CHEAT_MOON_JUMP: usize = 3;
+#[derive(Copy, Clone)]
+enum CheatId {
+    Invincible,
+    InfiniteMagic,
+    InfiniteAir,
+    SwiftWind,
+    MoonJump,
+    FastMovement,
+}
+
+use self::CheatId::*;
 
 pub fn render() {
     let console = Console::get();

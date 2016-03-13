@@ -4,7 +4,6 @@
 #[macro_use]
 extern crate libtww;
 
-use libtww::prelude::*;
 use libtww::system;
 use libtww::game::{controller, Console};
 
