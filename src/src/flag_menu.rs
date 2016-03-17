@@ -1,9 +1,11 @@
 use libtww::prelude::*;
-use libtww::game::{controller, Console};
+use libtww::game::Console;
 use libtww::game::flag::*;
 
 use utils::*;
-use cursor;
+use controller;
+
+static mut cursor: usize = 0;
 
 pub const FLAGS: [(&'static str, Flag); 227] =
     [("Has seen Helmaroc arriving at Outset", HAS_SEEN_HELMAROC_ARRIVING_AT_OUTSET),
@@ -236,21 +238,17 @@ pub const FLAGS: [(&'static str, Flag); 227] =
 
 static mut scroll_offset: usize = 0;
 
-pub fn transition_into() {
-    unsafe {
-        scroll_offset = 0;
-    }
-}
+pub fn transition_into() {}
 
 pub fn scroll_move_cursor() {
-    if is_pressed(controller::DPAD_UP) && unsafe { cursor } > 0 {
+    if controller::DPAD_UP.is_pressed() && unsafe { cursor } > 0 {
         unsafe {
             cursor -= 1;
             if cursor >= 4 && cursor - 4 < scroll_offset {
                 scroll_offset = cursor - 4;
             }
         }
-    } else if is_pressed(controller::DPAD_DOWN) && unsafe { cursor + 1 } < FLAGS.len() {
+    } else if controller::DPAD_DOWN.is_pressed() && unsafe { cursor + 1 } < FLAGS.len() {
         unsafe {
             cursor += 1;
             if cursor + 4 < FLAGS.len() && cursor > scroll_offset + 20 {
@@ -267,8 +265,8 @@ pub fn render() {
     let _ = write!(lines[0].begin(), "Flag Menu");
     let _ = write!(lines[1].begin(), "=========");
 
-    let pressed_a = is_pressed(controller::A);
-    let pressed_b = is_pressed(controller::B);
+    let pressed_a = controller::A.is_pressed();
+    let pressed_b = controller::B.is_pressed();
 
     if pressed_b {
         transition(MenuState::MainMenu);

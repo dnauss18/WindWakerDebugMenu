@@ -1,28 +1,30 @@
 use libtww::prelude::*;
-use libtww::game::{controller, Console};
+use libtww::game::Console;
 use libtww::Link;
 use libtww::system;
 
 use utils::*;
-use cursor;
+use controller;
 
+static mut cursor: usize = 0;
 static mut scroll_offset: usize = 0;
+static mut already_pressed_a: bool = false;
 
 pub fn transition_into() {
     unsafe {
-        scroll_offset = 0;
+        already_pressed_a = false;
     }
 }
 
 pub fn scroll_move_cursor(len: usize) {
-    if is_pressed(controller::DPAD_UP) && unsafe { cursor } > 0 {
+    if controller::DPAD_UP.is_pressed() && unsafe { cursor } > 0 {
         unsafe {
             cursor -= 1;
             if cursor >= 4 && cursor - 4 < scroll_offset {
                 scroll_offset = cursor - 4;
             }
         }
-    } else if is_pressed(controller::DPAD_DOWN) && unsafe { cursor + 1 } < len {
+    } else if controller::DPAD_DOWN.is_pressed() && unsafe { cursor + 1 } < len {
         unsafe {
             cursor += 1;
             if cursor + 4 < len && cursor > scroll_offset + 20 {
@@ -125,11 +127,11 @@ pub fn render() {
     let _ = write!(lines[0].begin(), "Cheat Menu");
     let _ = write!(lines[1].begin(), "==========");
 
-    let down_a = is_down(controller::A);
-    let pressed_a = is_pressed(controller::A);
-    let pressed_b = is_pressed(controller::B);
-    // let dpad_left = is_pressed(controller::DPAD_LEFT);
-    // let dpad_right = is_pressed(controller::DPAD_RIGHT);
+    let down_a = controller::A.is_down();
+    let pressed_a = controller::A.is_pressed();
+    let pressed_b = controller::B.is_pressed();
+    // let dpad_left = controller::DPAD_LEFT.is_pressed();
+    // let dpad_right = controller::DPAD_RIGHT.is_pressed();
 
     if pressed_b {
         transition(MenuState::MainMenu);
@@ -141,9 +143,13 @@ pub fn render() {
     let cheat_id = unsafe { cursor };
     let cheat = unsafe { &mut cheats[cheat_id] };
 
+    unsafe {
+        already_pressed_a |= pressed_a;
+    }
+
     if cheat.togglable {
         cheat.active ^= pressed_a;
-    } else {
+    } else if unsafe { already_pressed_a } {
         cheat.active = down_a;
     }
 

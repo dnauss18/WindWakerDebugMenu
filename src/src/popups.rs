@@ -32,7 +32,7 @@ pub fn check_global_flags() {
         console.lines[1].visible = true;
     }
     if unsafe { visible } {
-        let mut console = Console::get(); 
+        let mut console = Console::get();
         console.visible = true;
         console.background_color.a = 0;
         console.lines[1].visible = false;
@@ -45,7 +45,10 @@ pub fn check_global_flags() {
             };
             let _ = write!(console.lines[0].begin(), "{}", text);
         } else {
-            let _ = write!(console.lines[0].begin(), "Flag {:02X} {} has been set", 0xFF & addr, bit);
+            let _ = write!(console.lines[0].begin(),
+                           "Flag {:02X} {} has been set",
+                           0xFF & addr,
+                           bit);
         }
     }
 

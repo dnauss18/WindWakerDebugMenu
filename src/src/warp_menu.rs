@@ -1,10 +1,12 @@
 use libtww::prelude::*;
-use libtww::game::{controller, Console};
+use libtww::game::Console;
 use libtww::warping::warp::Warp;
 use libtww::warping::fadeout::FadeOut;
 
 use utils::*;
-use cursor;
+use controller;
+
+static mut cursor: usize = 0;
 
 static mut category_index: usize = 0;
 static mut stage_index: usize = 0;
@@ -263,10 +265,10 @@ pub fn render() {
     let _ = write!(lines[0].begin(), "Warp Menu");
     let _ = write!(lines[1].begin(), "=========");
 
-    let pressed_a = is_pressed(controller::A);
-    let pressed_b = is_pressed(controller::B);
-    let dpad_left = is_pressed(controller::DPAD_LEFT);
-    let dpad_right = is_pressed(controller::DPAD_RIGHT);
+    let pressed_a = controller::A.is_pressed();
+    let pressed_b = controller::B.is_pressed();
+    let dpad_left = controller::DPAD_LEFT.is_pressed();
+    let dpad_right = controller::DPAD_RIGHT.is_pressed();
 
     if pressed_b {
         transition(MenuState::MainMenu);
@@ -281,7 +283,7 @@ pub fn render() {
                     "",
                     "Warp"];
 
-    move_cursor(contents.len());
+    move_cursor(contents.len(), unsafe { &mut cursor });
 
     let last_exit = Warp::last_exit();
     let last_exit_stage = last_exit.entrance.stage_name();

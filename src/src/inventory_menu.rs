@@ -1,10 +1,12 @@
 use libtww::prelude::*;
-use libtww::game::{controller, Console};
+use libtww::game::Console;
 use libtww::link::item::*;
 use libtww::link::inventory::Inventory;
 
 use utils::*;
-use cursor;
+use controller;
+
+static mut cursor: usize = 0;
 
 #[derive(Copy, Clone)]
 enum ItemType {
@@ -19,7 +21,8 @@ use self::ItemType::*;
 const ITEM_SLOTS: [(&'static str, ItemType); 21] = [("Telescope:     ", SingleItem(TELESCOPE)),
                                                     ("Sail:          ", SingleItem(SAIL)),
                                                     ("Wind Waker:    ", SingleItem(WIND_WAKER)),
-                                                    ("Grappling Hook:", SingleItem(GRAPPLING_HOOK)),
+                                                    ("Grappling Hook:",
+                                                     SingleItem(GRAPPLING_HOOK)),
                                                     ("Spoils Bag:    ", SingleItem(SPOILS_BAG)),
                                                     ("Boomerang:     ", SingleItem(BOOMERANG)),
                                                     ("Deku Leaf:     ", SingleItem(DEKU_LEAF)),
@@ -40,21 +43,17 @@ const ITEM_SLOTS: [(&'static str, ItemType); 21] = [("Telescope:     ", SingleIt
 
 static mut scroll_offset: usize = 0;
 
-pub fn transition_into() {
-    unsafe {
-        scroll_offset = 0;
-    }
-}
+pub fn transition_into() {}
 
 pub fn scroll_move_cursor() {
-    if is_pressed(controller::DPAD_UP) && unsafe { cursor } > 0 {
+    if controller::DPAD_UP.is_pressed() && unsafe { cursor } > 0 {
         unsafe {
             cursor -= 1;
             if cursor >= 4 && cursor - 4 < scroll_offset {
                 scroll_offset = cursor - 4;
             }
         }
-    } else if is_pressed(controller::DPAD_DOWN) && unsafe { cursor + 1 } < ITEM_SLOTS.len() {
+    } else if controller::DPAD_DOWN.is_pressed() && unsafe { cursor + 1 } < ITEM_SLOTS.len() {
         unsafe {
             cursor += 1;
             if cursor + 4 < ITEM_SLOTS.len() && cursor > scroll_offset + 20 {
@@ -177,8 +176,8 @@ pub fn item_id_to_str(item_id: u8) -> &'static str {
 }
 
 fn handle_item_switch() {
-    let dpad_left = is_pressed(controller::DPAD_LEFT);
-    let dpad_right = is_pressed(controller::DPAD_RIGHT);
+    let dpad_left = controller::DPAD_LEFT.is_pressed();
+    let dpad_right = controller::DPAD_RIGHT.is_pressed();
     let item_slot = unsafe { cursor };
     let item_id = Inventory::get_by_slot_id(item_slot);
     let (_, item_type) = ITEM_SLOTS[item_slot];
@@ -230,7 +229,7 @@ pub fn render() {
     let _ = write!(lines[0].begin(), "Inventory Menu");
     let _ = write!(lines[1].begin(), "==============");
 
-    let pressed_b = is_pressed(controller::B);
+    let pressed_b = controller::B.is_pressed();
 
     if pressed_b {
         transition(MenuState::MainMenu);
@@ -242,12 +241,10 @@ pub fn render() {
     handle_item_switch();
 
     for (index, (line, &(text, _))) in lines.into_iter()
-                                                    .skip(3)
-                                                    .zip(ITEM_SLOTS.iter().skip(unsafe {
-                                                        scroll_offset
-                                                    }))
-                                                    .enumerate()
-                                                    .take(25) {
+                                            .skip(3)
+                                            .zip(ITEM_SLOTS.iter().skip(unsafe { scroll_offset }))
+                                            .enumerate()
+                                            .take(25) {
         let index = index + unsafe { scroll_offset };
         if index == unsafe { cursor } {
             let _ = write!(line.begin(), "> ");

@@ -5,9 +5,8 @@
 extern crate libtww;
 
 use libtww::system;
-use libtww::game::{controller, Console};
+use libtww::game::Console;
 
-pub mod flag_editor;
 pub mod main_menu;
 pub mod warp_menu;
 pub mod flag_menu;
@@ -15,10 +14,10 @@ pub mod inventory_menu;
 pub mod cheat_menu;
 pub mod utils;
 pub mod popups;
+pub mod controller;
 
 use utils::*;
 
-pub static mut cursor: usize = 0;
 pub static mut visible: bool = false;
 
 #[no_mangle]
@@ -50,10 +49,12 @@ pub extern "C" fn game_loop() {
             MenuState::InventoryMenu => inventory_menu::render(),
             MenuState::CheatMenu => cheat_menu::render(),
         }
-    } else if is_pressed(controller::DPAD_DOWN) && unsafe { !popups::visible } {
+    } else if controller::DPAD_DOWN.is_pressed() && unsafe { !popups::visible } {
         let console = Console::get();
         console.visible = true;
-        unsafe { visible = true; }
+        unsafe {
+            visible = true;
+        }
     } else {
         // Only check popups if the Debug Menu is not open
         popups::check_global_flags();
@@ -64,5 +65,5 @@ pub extern "C" fn game_loop() {
 pub extern "C" fn start() {
     game_loop();
     init();
-    let _ = read_controller();
+    let _ = controller::read_controller();
 }

@@ -1,9 +1,12 @@
 use libtww::prelude::*;
 use libtww::Link;
-use libtww::game::{controller, Console, event};
+use libtww::game::{Console, event};
 
 use utils::*;
-use {cursor, visible};
+use visible;
+use controller;
+
+static mut cursor: usize = 0;
 
 pub fn transition_into() {}
 
@@ -21,12 +24,14 @@ pub fn render() {
     let _ = write!(lines[0].begin(), "Debug Menu");
     let _ = write!(lines[1].begin(), "==========");
 
-    let pressed_a = is_pressed(controller::A);
-    let pressed_b = is_pressed(controller::B);
+    let pressed_a = controller::A.is_pressed();
+    let pressed_b = controller::B.is_pressed();
 
     if pressed_b {
         console.visible = false;
-        unsafe { visible = false; }
+        unsafe {
+            visible = false;
+        }
         return;
     }
 
@@ -38,7 +43,7 @@ pub fn render() {
                     "Inventory Menu",
                     "Cheat Menu"];
 
-    move_cursor(contents.len());
+    move_cursor(contents.len(), unsafe { &mut cursor });
 
     if pressed_a {
         match unsafe { cursor } {
