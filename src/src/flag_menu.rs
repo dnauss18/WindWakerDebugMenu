@@ -5,7 +5,7 @@ use libtww::game::flag::*;
 use utils::*;
 use cursor;
 
-pub const FLAGS: [(&'static str, Flag); 226] =
+pub const FLAGS: [(&'static str, Flag); 227] =
     [("Has seen Helmaroc arriving at Outset", HAS_SEEN_HELMAROC_ARRIVING_AT_OUTSET),
      ("Talked to Orca when visiting Outset a second time", TALKED_TO_ORCA_WHEN_VISITING_OUTSET_A_SECOND_TIME),
      ("Forest of Fairies Bokoblins Spawned", FOREST_OF_FAIRIES_BOKOBLINS_SPAWNED),
@@ -128,7 +128,8 @@ pub const FLAGS: [(&'static str, Flag); 226] =
      ("Talked to KoRL after Hyrule 2 / FF3 active", TALKED_TO_KORL_AFTER_HYRULE_2_AND_FF3_ACTIVE),
      ("Entered the password on Pirate Ship", ENTERED_THE_PASSWORD_ON_PIRATE_SHIP),
      ("Is allowed to enter KoRL", IS_ALLOWED_TO_ENTER_KORL),
-     ("Said yes to Mailbag Game the first time", SAID_YES_TO_MAILBAG_GAME_FIRST_TIME),
+     ("Started Mail Minigame", STARTED_MAIL_MINIGAME),
+     ("Mail Minigame Intro", MAIL_MINIGAME_INTRO),
      ("Talked to Nico before Rope Game 2", TALKED_TO_NICO_BEFORE_ROPE_GAME_2),
      ("Left Dragon Roost Island Quadrant", LEFT_DRAGON_ROOST_ISLAND_QUADRANT),
      ("Talked to Gossack on Windfall", TALKED_TO_GOSSACK_ON_WINDFALL),
