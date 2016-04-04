@@ -17,6 +17,7 @@ pub fn render() {
     const MENU_ITEM_WARP: usize = 4;
     const MENU_ITEM_INVENTORY: usize = 5;
     const MENU_ITEM_CHEAT: usize = 6;
+    const MENU_ITEM_SPAWN: usize = 7;
 
     let console = Console::get();
 
@@ -41,7 +42,8 @@ pub fn render() {
                     "Flag Menu",
                     "Warp Menu",
                     "Inventory Menu",
-                    "Cheat Menu"];
+                    "Cheat Menu",
+                    "Spawn Menu"];
 
     move_cursor(contents.len(), unsafe { &mut cursor });
 
@@ -65,6 +67,10 @@ pub fn render() {
                 transition(MenuState::CheatMenu);
                 return;
             }
+            MENU_ITEM_SPAWN => {
+                transition(MenuState::SpawnMenu);
+                return;
+            }
             _ => {}
         }
     }
@@ -78,7 +84,7 @@ pub fn render() {
         let _ = write!(line.append(), "{}", content);
 
         if index == MENU_ITEM_COLLISION {
-            let _ = write!(line.append(), "{}", Link::get_collision());
+            let _ = write!(line.append(), "{}", Link::collision());
         } else if index == MENU_ITEM_STORAGE {
             let _ = write!(line.append(), "{}", bool_to_text(event::event_cancel()));
         }

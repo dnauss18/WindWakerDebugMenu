@@ -68,8 +68,11 @@ pub fn apply_cheats() {
                     link.max_magic = 32;
                     link.magic = link.max_magic;
                 }
+                InfiniteRupees => {
+                    link.rupees = 9999;
+                }
                 SwiftWind => {
-                    let direction = Link::direction();
+                    let direction = Link::horizontal_movement_direction();
                     let wind = if direction < 0x1000 || direction > 0xF000 {
                         2
                     } else if direction < 0x3000 {
@@ -101,9 +104,10 @@ pub fn apply_cheats() {
     }
 }
 
-static mut cheats: [Cheat; 6] = [Cheat::new(Invincible, "Invincible", true),
+static mut cheats: [Cheat; 7] = [Cheat::new(Invincible, "Invincible", true),
                                  Cheat::new(InfiniteMagic, "Infinite Magic", true),
                                  Cheat::new(InfiniteAir, "Infinite Air", true),
+                                 Cheat::new(InfiniteRupees, "Infinite Rupees", true),
                                  Cheat::new(SwiftWind, "Swift Wind", true),
                                  Cheat::new(MoonJump, "Moon Jump", false),
                                  Cheat::new(FastMovement, "Fast Movement", false)];
@@ -113,6 +117,7 @@ enum CheatId {
     Invincible,
     InfiniteMagic,
     InfiniteAir,
+    InfiniteRupees,
     SwiftWind,
     MoonJump,
     FastMovement,

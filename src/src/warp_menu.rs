@@ -16,6 +16,8 @@ static mut layer_override: i8 = -1;
 
 type Stage = (&'static str, &'static str);
 
+// TODO Synchronize this with the changes again
+
 static CATEGORIES: [&'static str; 20] = ["Last Warp",
                                          "Cavern",
                                          "Developer",
@@ -234,7 +236,7 @@ fn get_stages_for_category(index: usize) -> &'static [(&'static str, &'static st
         17 => STAGES_TOWER_OF_THE_GODS,
         18 => STAGES_WIND_TEMPLE,
         19 => STAGES_WINDFALL,
-        _ => panic!("Wat"),
+        _ => unreachable!(),
     }
 }
 

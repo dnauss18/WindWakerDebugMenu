@@ -15,6 +15,7 @@ pub mod cheat_menu;
 pub mod utils;
 pub mod popups;
 pub mod controller;
+pub mod spawn_menu;
 
 use utils::*;
 
@@ -48,6 +49,7 @@ pub extern "C" fn game_loop() {
             MenuState::FlagMenu => flag_menu::render(),
             MenuState::InventoryMenu => inventory_menu::render(),
             MenuState::CheatMenu => cheat_menu::render(),
+            MenuState::SpawnMenu => spawn_menu::render(),
         }
     } else if controller::DPAD_DOWN.is_pressed() && unsafe { !popups::visible } {
         let console = Console::get();

@@ -7,6 +7,8 @@ use controller;
 
 static mut cursor: usize = 0;
 
+// TODO Synchronize this with possible changes
+
 pub const FLAGS: [(&'static str, Flag); 227] =
     [("Has seen Helmaroc arriving at Outset", HAS_SEEN_HELMAROC_ARRIVING_AT_OUTSET),
      ("Talked to Orca when visiting Outset a second time", TALKED_TO_ORCA_WHEN_VISITING_OUTSET_A_SECOND_TIME),

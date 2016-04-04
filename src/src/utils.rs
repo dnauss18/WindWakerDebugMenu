@@ -9,6 +9,7 @@ use flag_menu;
 use inventory_menu;
 use cheat_menu;
 use controller;
+use spawn_menu;
 
 pub fn clear_menu() {
     let console = Console::get();
@@ -29,6 +30,7 @@ pub fn transition(state: MenuState) {
         MenuState::FlagMenu => flag_menu::transition_into(),
         MenuState::InventoryMenu => inventory_menu::transition_into(),
         MenuState::CheatMenu => cheat_menu::transition_into(),
+        MenuState::SpawnMenu => spawn_menu::transition_into(),
     }
 }
 
@@ -50,7 +52,7 @@ pub fn move_cursor(len: usize, cursor: &mut usize) {
 }
 
 pub fn next_collision() {
-    let collision = Link::get_collision();
+    let collision = Link::collision();
     let collision = match collision {
         CollisionType::Default => CollisionType::ChestStorage,
         CollisionType::ChestStorage => CollisionType::DoorCancel,
@@ -74,6 +76,7 @@ pub enum MenuState {
     FlagMenu,
     InventoryMenu,
     CheatMenu,
+    SpawnMenu,
 }
 
 pub static mut menu_state: MenuState = MenuState::MainMenu;
