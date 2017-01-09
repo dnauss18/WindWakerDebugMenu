@@ -353,7 +353,7 @@ pub fn render() {
                                      entrance_index,
                                      room_index,
                                      layer_override,
-                                     FadeOut::Default,
+                                     FadeOut::NormalBlack,
                                      true);
                 warp.execute();
             }

@@ -917,7 +917,7 @@ pub fn render() {
                     let _ = write!(code, ".with_flag({:#06X})", flag_to_set);
                 }
                 let _ = write!(code, ".spawn();");
-                system::report(&code);
+                println!("{}", code);
             }
         }
         _ => {}
