@@ -1,4 +1,4 @@
-use libtww::prelude::*;
+use core::fmt::Write;
 use libtww::system::memory::read;
 use libtww::system::get_frame_count;
 use libtww::Addr;
@@ -26,29 +26,27 @@ pub fn check_global_flags() {
         unsafe {
             visible = false;
         }
-        let mut console = Console::get();
+        let console = Console::get();
         console.visible = false;
         console.background_color.a = 150;
         console.lines[1].visible = true;
     }
     if unsafe { visible } {
-        let mut console = Console::get();
+        let console = Console::get();
         console.visible = true;
         console.background_color.a = 0;
         console.lines[1].visible = false;
         let Flag(addr, bit) = unsafe { flag };
         if let Some(text) = get_flag_str(Flag(addr, 1 << bit)) {
-            let text = if text.len() > 50 {
-                &text[..50]
-            } else {
-                text
-            };
+            let text = if text.len() > 50 { &text[..50] } else { text };
             let _ = write!(console.lines[0].begin(), "{}", text);
         } else {
-            let _ = write!(console.lines[0].begin(),
-                           "Flag {:02X} {} has been set",
-                           0xFF & addr,
-                           bit);
+            let _ = write!(
+                console.lines[0].begin(),
+                "Flag {:02X} {} has been set",
+                0xFF & addr,
+                bit
+            );
         }
     }
 

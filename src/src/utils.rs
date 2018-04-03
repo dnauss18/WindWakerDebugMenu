@@ -1,4 +1,3 @@
-use libtww::prelude::*;
 use libtww::Link;
 use libtww::link::CollisionType;
 use libtww::game::Console;
@@ -13,7 +12,7 @@ use spawn_menu;
 
 pub fn clear_menu() {
     let console = Console::get();
-    let mut lines = &mut console.lines;
+    let lines = &mut console.lines;
     for line in lines.into_iter().skip(3) {
         line.clear();
     }

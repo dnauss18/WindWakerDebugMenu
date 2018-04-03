@@ -1,4 +1,4 @@
-use libtww::prelude::*;
+use core::fmt::Write;
 use libtww::game::Console;
 use libtww::Link;
 use libtww::system;
@@ -53,7 +53,7 @@ impl Cheat {
 }
 
 pub fn apply_cheats() {
-    let mut link = Link::get();
+    let link = Link::get();
 
     for cheat in unsafe { &cheats } {
         if cheat.active {
@@ -104,13 +104,15 @@ pub fn apply_cheats() {
     }
 }
 
-static mut cheats: [Cheat; 7] = [Cheat::new(Invincible, "Invincible", true),
-                                 Cheat::new(InfiniteMagic, "Infinite Magic", true),
-                                 Cheat::new(InfiniteAir, "Infinite Air", true),
-                                 Cheat::new(InfiniteRupees, "Infinite Rupees", true),
-                                 Cheat::new(SwiftWind, "Swift Wind", true),
-                                 Cheat::new(MoonJump, "Moon Jump", false),
-                                 Cheat::new(FastMovement, "Fast Movement", false)];
+static mut cheats: [Cheat; 7] = [
+    Cheat::new(Invincible, "Invincible", true),
+    Cheat::new(InfiniteMagic, "Infinite Magic", true),
+    Cheat::new(InfiniteAir, "Infinite Air", true),
+    Cheat::new(InfiniteRupees, "Infinite Rupees", true),
+    Cheat::new(SwiftWind, "Swift Wind", true),
+    Cheat::new(MoonJump, "Moon Jump", false),
+    Cheat::new(FastMovement, "Fast Movement", false),
+];
 
 #[derive(Copy, Clone)]
 enum CheatId {
@@ -127,7 +129,7 @@ use self::CheatId::*;
 
 pub fn render() {
     let console = Console::get();
-    let mut lines = &mut console.lines;
+    let lines = &mut console.lines;
 
     let _ = write!(lines[0].begin(), "Cheat Menu");
     let _ = write!(lines[1].begin(), "==========");
@@ -158,14 +160,13 @@ pub fn render() {
         cheat.active = down_a;
     }
 
-    for (index, (line, cheat)) in lines.into_iter()
-                                       .skip(3)
-                                       .zip(unsafe {
-                                           cheats.iter()
-                                                 .skip(scroll_offset)
-                                       })
-                                       .enumerate()
-                                       .take(25) {
+    for (index, (line, cheat)) in lines
+        .into_iter()
+        .skip(3)
+        .zip(unsafe { cheats.iter().skip(scroll_offset) })
+        .enumerate()
+        .take(25)
+    {
         let index = index + unsafe { scroll_offset };
         if index == unsafe { cursor } {
             let _ = write!(line.begin(), "> ");
@@ -173,18 +174,10 @@ pub fn render() {
             let _ = write!(line.begin(), "  ");
         }
 
-        let checkbox = if cheat.active {
-            "[x] "
-        } else {
-            "[ ] "
-        };
+        let checkbox = if cheat.active { "[x] " } else { "[ ] " };
 
         let text = cheat.name;
-        let text = if text.len() > 45 {
-            &text[..45]
-        } else {
-            text
-        };
+        let text = if text.len() > 45 { &text[..45] } else { text };
 
         let _ = write!(line.append(), "{}{}", checkbox, text);
     }

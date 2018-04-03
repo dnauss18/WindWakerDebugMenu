@@ -1,6 +1,6 @@
-use libtww::prelude::*;
+use core::fmt::Write;
 use libtww::Link;
-use libtww::game::{Console, event};
+use libtww::game::{event, Console};
 
 use utils::*;
 use visible;
@@ -21,7 +21,7 @@ pub fn render() {
 
     let console = Console::get();
 
-    let mut lines = &mut console.lines;
+    let lines = &mut console.lines;
     let _ = write!(lines[0].begin(), "Debug Menu");
     let _ = write!(lines[1].begin(), "==========");
 
@@ -36,14 +36,16 @@ pub fn render() {
         return;
     }
 
-    let contents = ["Collision: ",
-                    "Storage: ",
-                    "",
-                    "Flag Menu",
-                    "Warp Menu",
-                    "Inventory Menu",
-                    "Cheat Menu",
-                    "Spawn Menu"];
+    let contents = [
+        "Collision: ",
+        "Storage: ",
+        "",
+        "Flag Menu",
+        "Warp Menu",
+        "Inventory Menu",
+        "Cheat Menu",
+        "Spawn Menu",
+    ];
 
     move_cursor(contents.len(), unsafe { &mut cursor });
 

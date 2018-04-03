@@ -1,7 +1,7 @@
 #![no_std]
-#![feature(asm, const_fn)]
+#![feature(const_fn)]
+#![allow(non_upper_case_globals)]
 
-#[macro_use]
 extern crate libtww;
 
 use libtww::system;
@@ -27,7 +27,7 @@ pub extern "C" fn init() {
     // Call overriden instruction
     system::cdyl_init_async();
 
-    let mut console = Console::get();
+    let console = Console::get();
     console.line_count = 32;
     console.x = 0;
     console.y = 16;
