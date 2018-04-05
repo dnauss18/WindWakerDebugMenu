@@ -7,5 +7,12 @@ authors = ["Christopher Serr <cryze92@gmail.com>"]
 name = "rust"
 crate-type = ["staticlib"]
 
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+lto = true
+
 [dependencies]
 libtww = { path = "libtww-core" }

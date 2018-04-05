@@ -1,14 +1,9 @@
 use libtww::Link;
-use libtww::link::CollisionType;
 use libtww::game::Console;
+use libtww::link::CollisionType;
 
-use main_menu;
-use warp_menu;
-use flag_menu;
-use inventory_menu;
-use cheat_menu;
-use controller;
-use spawn_menu;
+use {cheat_menu, controller, flag_menu, inventory_menu, main_menu, quest_menu, spawn_menu,
+     warp_menu};
 
 pub fn clear_menu() {
     let console = Console::get();
@@ -30,6 +25,7 @@ pub fn transition(state: MenuState) {
         MenuState::InventoryMenu => inventory_menu::transition_into(),
         MenuState::CheatMenu => cheat_menu::transition_into(),
         MenuState::SpawnMenu => spawn_menu::transition_into(),
+        MenuState::QuestMenu => quest_menu::transition_into(),
     }
 }
 
@@ -76,6 +72,7 @@ pub enum MenuState {
     InventoryMenu,
     CheatMenu,
     SpawnMenu,
+    QuestMenu,
 }
 
 pub static mut menu_state: MenuState = MenuState::MainMenu;
