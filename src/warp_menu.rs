@@ -1,10 +1,11 @@
 use core::fmt::Write;
 use libtww::game::Console;
-use libtww::warping::warp::Warp;
 use libtww::warping::fadeout::FadeOut;
+use libtww::warping::warp::Warp;
+use visible;
 
-use utils::*;
 use controller;
+use utils::*;
 
 static mut cursor: usize = 0;
 
@@ -223,7 +224,7 @@ static STAGES_SEA: &'static [Stage; 8] = &[
     ("Sea", "sea"),
     ("Tetras Ship Inside", "Asoko"),
     ("Tetras Ship Outside", "A umikz"),
-    ("Submarine Five Star Isles", "Abship"),
+    ("Submarine", "Abship"),
     ("Cabana", "Abesso"),
     ("Boating Course", "Ocean"),
     ("Ghost Ship", "PShip"),
@@ -391,6 +392,8 @@ pub fn render() {
         },
         MENU_ITEM_WARP => unsafe {
             if pressed_a {
+                visible = false;
+                console.visible = false;
                 let warp = Warp::new(
                     actual_stage_name,
                     entrance_index,
