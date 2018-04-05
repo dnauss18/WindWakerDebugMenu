@@ -8,4 +8,4 @@ name = "rust"
 crate-type = ["staticlib"]
 
 [dependencies]
-libtww = { path = "../libtww-core" }
+libtww = { path = "libtww-core" }

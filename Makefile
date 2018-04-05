@@ -20,8 +20,8 @@ include $(DEVKITPPC)/wii_rules
 # SOURCES is a list of directories containing source code
 # INCLUDES is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
-TARGET		:=	build/intermediate
-BUILD		:=	build
+TARGET		:=	target/intermediate
+BUILD		:=	target
 SOURCES		:=	source
 DATA		:=      data
 TEXTURES	:=	textures
@@ -59,7 +59,7 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
 					$(foreach dir,$(DATA),$(CURDIR)/$(dir)) \
 					$(foreach dir,$(TEXTURES),$(CURDIR)/$(dir))
-					
+
 
 export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 
@@ -108,14 +108,14 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 #---------------------------------------------------------------------------------
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
-	@cd src && cargo build --release --target powerpc-unknown-linux-gnu && cd ..
+	@cd src && RUSTFLAGS="-C target-feature=+msync,+fres,+frsqrte" cargo build --release --target powerpc-unknown-linux-gnu && cd ..
 	@rm -f lib/librust.a
-	@cp src/target/powerpc-unknown-linux-gnu/release/librust.a lib/.
+	@cp target/powerpc-unknown-linux-gnu/release/librust.a lib/.
 	@rm -fr $(OUTPUT).elf $(OUTPUT).dol
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 	@echo
 	@echo Patching and merging the original game...
-	@cd patcher && cargo build --release && ./target/release/patcher && cd ..
+	@cd libtww-core/patcher && cargo build --release && ./target/release/patcher && cd ../..
 #---------------------------------------------------------------------------------
 iso: $(BUILD)
 	@echo

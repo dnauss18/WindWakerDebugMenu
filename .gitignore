@@ -3,3 +3,5 @@ lib/
 game/
 rom_hack.iso
 prefs.ini
+target
+Cargo.lock
