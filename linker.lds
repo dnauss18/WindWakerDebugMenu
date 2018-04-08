@@ -4,8 +4,9 @@
 
 OUTPUT_FORMAT("elf32-powerpc", "elf32-powerpc", "elf32-powerpc");
 OUTPUT_ARCH(powerpc:common);
-EXTERN(start);
-ENTRY(start);
+EXTERN(game_loop);
+EXTERN(init);
+EXTERN(read_controller);
 
 PHDRS
 {

@@ -36,18 +36,20 @@ impl Button {
     }
 }
 
-static mut button_states: [ButtonState; 12] = [ButtonState::new(controller::DPAD_LEFT),
-                                               ButtonState::new(controller::DPAD_RIGHT),
-                                               ButtonState::new(controller::DPAD_DOWN),
-                                               ButtonState::new(controller::DPAD_UP),
-                                               ButtonState::new(controller::Z),
-                                               ButtonState::new(controller::R),
-                                               ButtonState::new(controller::L),
-                                               ButtonState::new(controller::A),
-                                               ButtonState::new(controller::B),
-                                               ButtonState::new(controller::X),
-                                               ButtonState::new(controller::Y),
-                                               ButtonState::new(controller::START)];
+static mut button_states: [ButtonState; 12] = [
+    ButtonState::new(controller::DPAD_LEFT),
+    ButtonState::new(controller::DPAD_RIGHT),
+    ButtonState::new(controller::DPAD_DOWN),
+    ButtonState::new(controller::DPAD_UP),
+    ButtonState::new(controller::Z),
+    ButtonState::new(controller::R),
+    ButtonState::new(controller::L),
+    ButtonState::new(controller::A),
+    ButtonState::new(controller::B),
+    ButtonState::new(controller::X),
+    ButtonState::new(controller::Y),
+    ButtonState::new(controller::START),
+];
 
 struct ButtonState {
     button: u16,
@@ -70,7 +72,6 @@ static mut buttons_down: u16 = 0;
 static mut buttons_down_last_frame: u16 = 0;
 
 #[no_mangle]
-#[inline(never)]
 pub extern "C" fn read_controller() -> u32 {
     unsafe {
         buttons_down_last_frame = buttons_down;

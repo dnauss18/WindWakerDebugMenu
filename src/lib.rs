@@ -23,7 +23,6 @@ use utils::*;
 pub static mut visible: bool = false;
 
 #[no_mangle]
-#[inline(never)]
 pub extern "C" fn init() {
     // Call overriden instruction
     system::cdyl_init_async();
@@ -39,7 +38,6 @@ pub extern "C" fn init() {
 }
 
 #[no_mangle]
-#[inline(never)]
 pub extern "C" fn game_loop() {
     cheat_menu::apply_cheats();
 
@@ -63,11 +61,4 @@ pub extern "C" fn game_loop() {
         // Only check popups if the Debug Menu is not open
         popups::check_global_flags();
     }
-}
-
-#[no_mangle]
-pub extern "C" fn start() {
-    game_loop();
-    init();
-    let _ = controller::read_controller();
 }

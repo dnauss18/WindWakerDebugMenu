@@ -108,7 +108,7 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 #---------------------------------------------------------------------------------
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
-	@cd src && RUSTFLAGS="-C target-feature=+msync,+fres,+frsqrte" cargo build --release --target powerpc-unknown-linux-gnu && cd ..
+	@cd src && RUSTFLAGS="-C target-feature=+msync,+fres,+frsqrte -C opt-level=s" cargo build --release --target powerpc-unknown-linux-gnu && cd ..
 	@rm -f lib/librust.a
 	@cp target/powerpc-unknown-linux-gnu/release/librust.a lib/.
 	@rm -fr $(OUTPUT).elf $(OUTPUT).dol
