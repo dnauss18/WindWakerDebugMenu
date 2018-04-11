@@ -1,9 +1,9 @@
 use core::fmt::Write;
-use libtww::system::memory::read;
-use libtww::system::get_frame_count;
 use libtww::Addr;
 use libtww::game::Console;
 use libtww::game::Flag;
+use libtww::system::get_frame_count;
+use libtww::system::memory::read;
 
 use flag_menu::FLAGS;
 

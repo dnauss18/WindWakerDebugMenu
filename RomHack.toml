@@ -1,0 +1,14 @@
+[src]
+src = "code"
+dol = "game/original.dol"
+link = ["target/powerpc-unknown-linux-gnu/release/librust.a"]
+patch = "code/src/patch.asm"
+
+[out]
+dol = "game/sys/main.dol"
+map = "target/framework.map"
+iso = "rom_hack.iso"
+
+[link]
+entries = ["init", "game_loop", "read_controller"]
+base = "0x8040_1000"

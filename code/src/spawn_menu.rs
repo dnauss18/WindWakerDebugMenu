@@ -5,8 +5,8 @@ use libtww::game::actor::ActorTemplate;
 use libtww::Link;
 // use libtww::system;
 
-use utils::*;
 use controller;
+use utils::*;
 
 static mut cursor: usize = 0;
 

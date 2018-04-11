@@ -111,9 +111,6 @@ $(BUILD):
 	@cd src && RUSTFLAGS="-C target-feature=+msync,+fres,+frsqrte -C opt-level=s" cargo build --release --target powerpc-unknown-linux-gnu && cd ..
 	@rm -f lib/librust.a
 	@cp target/powerpc-unknown-linux-gnu/release/librust.a lib/.
-	@rm -fr $(OUTPUT).elf $(OUTPUT).dol
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
-	@echo
 	@echo Patching and merging the original game...
 	@cd libtww-core/patcher && cargo build --release && ./target/release/patcher && cd ../..
 #---------------------------------------------------------------------------------

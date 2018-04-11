@@ -1,10 +1,10 @@
 use core::fmt::Write;
-use libtww::game::Console;
 use libtww::Link;
+use libtww::game::Console;
 use libtww::system;
 
-use utils::*;
 use controller;
+use utils::*;
 
 static mut cursor: usize = 0;
 static mut scroll_offset: usize = 0;

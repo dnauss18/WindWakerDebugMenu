@@ -2,9 +2,9 @@ use core::fmt::Write;
 use libtww::Link;
 use libtww::game::{event, Console};
 
+use controller;
 use utils::*;
 use visible;
-use controller;
 
 static mut cursor: usize = 0;
 
@@ -46,7 +46,7 @@ pub fn render() {
         "Inventory Menu",
         "Cheat Menu",
         "Spawn Menu",
-        "Quest Menu"
+        "Quest Menu",
     ];
 
     move_cursor(contents.len(), unsafe { &mut cursor });

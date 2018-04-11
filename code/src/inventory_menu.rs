@@ -1,10 +1,10 @@
 use core::fmt::Write;
 use libtww::game::Console;
-use libtww::link::item::*;
 use libtww::link::inventory::Inventory;
+use libtww::link::item::*;
 
-use utils::*;
 use controller;
+use utils::*;
 
 static mut cursor: usize = 0;
 
