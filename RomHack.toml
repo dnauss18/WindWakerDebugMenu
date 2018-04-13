@@ -1,13 +1,12 @@
 [src]
+iso = "gzlj01.iso"
 src = "code"
-dol = "game/original.dol"
-link = ["target/powerpc-unknown-linux-gnu/release/librust.a"]
+link = ["code/target/powerpc-unknown-linux-gnu/release/librust.a"]
 patch = "code/src/patch.asm"
 
-[out]
-dol = "game/sys/main.dol"
+[build]
 map = "target/framework.map"
-iso = "rom_hack.iso"
+iso = "target/rom_hack.iso"
 
 [link]
 entries = ["init", "game_loop", "read_controller"]
