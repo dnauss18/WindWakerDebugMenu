@@ -1,6 +1,6 @@
 use core::fmt::Write;
-use libtww::game::Console;
 use libtww::game::flag::*;
+use libtww::game::Console;
 
 use controller;
 use utils::*;

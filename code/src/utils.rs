@@ -1,9 +1,28 @@
-use libtww::Link;
+use core::fmt;
+
+use core::cell::RefCell;
+use core::ops::{Deref, DerefMut};
 use libtww::game::Console;
 use libtww::link::CollisionType;
+use libtww::Link;
 
-use {cheat_menu, controller, flag_menu, inventory_menu, main_menu, quest_menu, spawn_menu,
-     warp_menu};
+use {cheat_menu, controller, flag_menu, inventory_menu, main_menu, memory, quest_menu, spawn_menu,
+     triforce, warp_menu};
+
+pub struct ColonWrapper<'a>(pub &'a str, pub &'a str, pub usize);
+
+impl<'a> fmt::Display for ColonWrapper<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}:", self.0)?;
+        if self.0.len() + 1 < self.2 {
+            for _ in 0..(self.2 - self.0.len()) {
+                write!(f, " ")?;
+            }
+        }
+        let _ = write!(f, "{}", self.1);
+        Ok(())
+    }
+}
 
 pub fn clear_menu() {
     let console = Console::get();
@@ -26,6 +45,8 @@ pub fn transition(state: MenuState) {
         MenuState::CheatMenu => cheat_menu::transition_into(),
         MenuState::SpawnMenu => spawn_menu::transition_into(),
         MenuState::QuestMenu => quest_menu::transition_into(),
+        MenuState::Triforce => triforce::render(),
+        MenuState::Memory => memory::render(),
     }
 }
 
@@ -73,6 +94,8 @@ pub enum MenuState {
     CheatMenu,
     SpawnMenu,
     QuestMenu,
+    Triforce,
+    Memory,
 }
 
 pub static mut menu_state: MenuState = MenuState::MainMenu;

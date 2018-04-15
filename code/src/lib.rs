@@ -1,8 +1,11 @@
 #![no_std]
 #![feature(const_fn)]
 #![allow(non_upper_case_globals)]
+// #![deny(warnings)]
 
 extern crate libtww;
+#[macro_use]
+extern crate lazy_static;
 
 use libtww::game::Console;
 use libtww::system;
@@ -12,12 +15,16 @@ pub mod controller;
 pub mod flag_menu;
 pub mod inventory_menu;
 pub mod main_menu;
+pub mod memory;
 pub mod popups;
 pub mod quest_menu;
 pub mod spawn_menu;
+pub mod triforce;
 pub mod utils;
 pub mod warp_menu;
+pub mod mutex;
 
+use mutex::*;
 use utils::*;
 
 pub static mut visible: bool = false;
@@ -40,6 +47,8 @@ pub extern "C" fn init() {
 #[no_mangle]
 pub extern "C" fn game_loop() {
     cheat_menu::apply_cheats();
+    let d_down = controller::DPAD_DOWN.is_pressed();
+    let rt_down = controller::R.is_down();
 
     if unsafe { visible } {
         match unsafe { menu_state } {
@@ -50,8 +59,10 @@ pub extern "C" fn game_loop() {
             MenuState::CheatMenu => cheat_menu::render(),
             MenuState::SpawnMenu => spawn_menu::render(),
             MenuState::QuestMenu => quest_menu::render(),
+            MenuState::Triforce => triforce::render(),
+            MenuState::Memory => memory::render(),
         }
-    } else if controller::DPAD_DOWN.is_pressed() && unsafe { !popups::visible } {
+    } else if d_down && rt_down && unsafe { !popups::visible } {
         let console = Console::get();
         console.visible = true;
         unsafe {

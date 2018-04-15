@@ -1,6 +1,6 @@
 use core::fmt::Write;
-use libtww::game::Console;
 use libtww::game::actor::ActorTemplate;
+use libtww::game::Console;
 // use libtww::game::actor;
 use libtww::Link;
 // use libtww::system;

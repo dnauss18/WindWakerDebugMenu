@@ -1,7 +1,7 @@
 use core::fmt::Write;
-use libtww::Link;
 use libtww::game::Console;
 use libtww::system;
+use libtww::Link;
 
 use controller;
 use utils::*;
