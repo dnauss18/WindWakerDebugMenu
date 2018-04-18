@@ -16,13 +16,13 @@ pub mod flag_menu;
 pub mod inventory_menu;
 pub mod main_menu;
 pub mod memory;
+pub mod mutex;
 pub mod popups;
 pub mod quest_menu;
 pub mod spawn_menu;
 pub mod triforce;
 pub mod utils;
 pub mod warp_menu;
-pub mod mutex;
 
 use mutex::*;
 use utils::*;

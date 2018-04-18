@@ -1,7 +1,5 @@
 use core::fmt;
 
-use core::cell::RefCell;
-use core::ops::{Deref, DerefMut};
 use libtww::game::Console;
 use libtww::link::CollisionType;
 use libtww::Link;

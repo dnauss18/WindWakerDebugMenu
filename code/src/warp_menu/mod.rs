@@ -1,8 +1,8 @@
 mod browse_top;
-mod stage_selection;
 mod consts;
 mod main;
 mod room_selection;
+mod stage_selection;
 
 pub static mut warp_menu_state: WarpMenu = WarpMenu::Main;
 

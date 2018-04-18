@@ -18,7 +18,7 @@ enum ItemType {
 
 use self::ItemType::*;
 
-const ITEM_SLOTS: [(&'static str, ItemType); 21] = [
+const ITEM_SLOTS: [(&str, ItemType); 21] = [
     ("Telescope:     ", SingleItem(TELESCOPE)),
     ("Sail:          ", SingleItem(SAIL)),
     ("Wind Waker:    ", SingleItem(WIND_WAKER)),

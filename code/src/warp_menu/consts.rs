@@ -24,7 +24,7 @@ pub enum Category {
     Windfall,
 }
 
-pub static CATEGORIES: [(&'static str, Category); 20] = [
+pub static CATEGORIES: [(&str, Category); 20] = [
     ("Last Warp", Category::LastWarp),
     ("Cavern", Category::Cavern),
     ("Developer", Category::Developer),
@@ -47,7 +47,7 @@ pub static CATEGORIES: [(&'static str, Category); 20] = [
     ("Windfall", Category::Windfall),
 ];
 
-pub static STAGES_CAVERN: &'static [Stage; 19] = &[
+pub static STAGES_CAVERN: &[Stage; 19] = &[
     ("Bomb Island", "Cave01"),
     ("Star Island", "Cave02"),
     ("Cliff Plateau Isles", "Cave03"),
@@ -69,7 +69,7 @@ pub static STAGES_CAVERN: &'static [Stage; 19] = &[
     ("Diamond Steppe Island", "WarpD"),
 ];
 
-pub static STAGES_DEV: &'static [Stage; 45] = &[
+pub static STAGES_DEV: &[Stage; 45] = &[
     ("Invisible Island", "A_nami"),
     ("E3 Forest", "A_R00"),
     ("Amos T", "Amos_T"),
@@ -117,38 +117,38 @@ pub static STAGES_DEV: &'static [Stage; 45] = &[
     ("Basic Island", "VrTest"),
 ];
 
-pub static STAGES_DRAGON_ROOST_CAVERN: &'static [Stage; 3] = &[
+pub static STAGES_DRAGON_ROOST_CAVERN: &[Stage; 3] = &[
     ("Dungeon", "M_NewD2"),
     ("Boss", "M_DragB"),
     ("Mini Boss", "M_Dra09"),
 ];
 
-pub static STAGES_DRAGON_ROOST_ISLAND: &'static [Stage; 3] = &[
+pub static STAGES_DRAGON_ROOST_ISLAND: &[Stage; 3] = &[
     ("Pond", "Adanmae"),
     ("Komalis Room", "Comori"),
     ("Postal Service", "Atorizk"),
 ];
 
-pub static STAGES_EARTH_TEMPLE: &'static [Stage; 4] = &[
+pub static STAGES_EARTH_TEMPLE: &[Stage; 4] = &[
     ("Entrance", "Edaichi"),
     ("Temple", "M_Dai"),
     ("Boss", "M_DaiB"),
     ("Mini Boss", "M_DaiMB"),
 ];
 
-pub static STAGES_FORBIDDEN_WOODS: &'static [Stage; 3] = &[
+pub static STAGES_FORBIDDEN_WOODS: &[Stage; 3] = &[
     ("Dungeon", "kindan"),
     ("Boss", "kinBOSS"),
     ("Mini Boss", "kinMB"),
 ];
 
-pub static STAGES_FOREST_HAVEN: &'static [Stage; 3] = &[
+pub static STAGES_FOREST_HAVEN: &[Stage; 3] = &[
     ("Potion Room", "Ocrogh"),
     ("Forest Haven", "Omori"),
     ("Makars Hiding Place", "Otkura"),
 ];
 
-pub static STAGES_FORSAKEN_FORTRESS: &'static [Stage; 7] = &[
+pub static STAGES_FORSAKEN_FORTRESS: &[Stage; 7] = &[
     ("Ganondorfs Room", "M2ganon"),
     ("FF1 Tower", "Mjtower"),
     ("FF2 Tower", "M2tower"),
@@ -158,7 +158,7 @@ pub static STAGES_FORSAKEN_FORTRESS: &'static [Stage; 7] = &[
     ("FF1", "MajyuE"),
 ];
 
-pub static STAGES_GANONS_TOWER: &'static [Stage; 15] = &[
+pub static STAGES_GANONS_TOWER: &[Stage; 15] = &[
     ("Entrance", "GanonA"),
     ("Room Towards Gohma", "GanonB"),
     ("Room Towards Molgera", "GanonC"),
@@ -176,7 +176,7 @@ pub static STAGES_GANONS_TOWER: &'static [Stage; 15] = &[
     ("Molgera", "Xboss3"),
 ];
 
-pub static STAGES_GREAT_FAIRY: &'static [Stage; 6] = &[
+pub static STAGES_GREAT_FAIRY: &[Stage; 6] = &[
     ("North", "Fairy01"),
     ("East", "Fairy02"),
     ("West", "Fairy03"),
@@ -185,13 +185,13 @@ pub static STAGES_GREAT_FAIRY: &'static [Stage; 6] = &[
     ("South", "Fairy06"),
 ];
 
-pub static STAGES_HYRULE: &'static [Stage; 3] = &[
+pub static STAGES_HYRULE: &[Stage; 3] = &[
     ("Castle", "Hyroom"),
     ("Field", "Hyrule"),
     ("Master Sword Chamber", "kenroom"),
 ];
 
-pub static STAGES_NINTENDO_GALLERY: &'static [Stage; 8] = &[
+pub static STAGES_NINTENDO_GALLERY: &[Stage; 8] = &[
     ("Great Sea", "figureA"),
     ("Windfall Island", "figureB"),
     ("Outset Island", "figureC"),
@@ -202,13 +202,13 @@ pub static STAGES_NINTENDO_GALLERY: &'static [Stage; 8] = &[
     ("Main Room", "Pfigure"),
 ];
 
-pub static STAGES_OTHER: &'static [Stage; 3] = &[
+pub static STAGES_OTHER: &[Stage; 3] = &[
     ("Name Select", "Name"),
     ("Ending", "ENDING"),
     ("Title Screen", "sea_T"),
 ];
 
-pub static STAGES_OUTSET: &'static [Stage; 7] = &[
+pub static STAGES_OUTSET: &[Stage; 7] = &[
     ("Links House", "LinkRM"),
     ("Under Links House", "LinkUG"),
     ("Forest Of Fairies", "A_mori"),
@@ -218,14 +218,14 @@ pub static STAGES_OUTSET: &'static [Stage; 7] = &[
     ("Jabuns Room", "Pjavdou"),
 ];
 
-pub static STAGES_SAVAGE_LABYRINTH: &'static [Stage; 4] = &[
+pub static STAGES_SAVAGE_LABYRINTH: &[Stage; 4] = &[
     ("Entrance", "Cave09"),
     ("Room11", "Cave10"),
     ("Room32", "Cave11"),
     ("End", "Cave06"),
 ];
 
-pub static STAGES_SEA: &'static [Stage; 8] = &[
+pub static STAGES_SEA: &[Stage; 8] = &[
     ("Sea", "sea"),
     ("Tetras Ship Inside", "Asoko"),
     ("Tetras Ship Outside", "A umikz"),
@@ -236,21 +236,21 @@ pub static STAGES_SEA: &'static [Stage; 8] = &[
     ("Islet Of Steel", "ShipD"),
 ];
 
-pub static STAGES_TOWER_OF_THE_GODS: &'static [Stage; 4] = &[
+pub static STAGES_TOWER_OF_THE_GODS: &[Stage; 4] = &[
     ("Dungeon", "Siren"),
     ("Boss", "SirenB"),
     ("Mini Boss", "SirenMB"),
     ("Outside", "ADMumi"),
 ];
 
-pub static STAGES_WIND_TEMPLE: &'static [Stage; 4] = &[
+pub static STAGES_WIND_TEMPLE: &[Stage; 4] = &[
     ("Entrance", "Ekaze"),
     ("Temple", "kaze"),
     ("Boss", "kazeB"),
     ("Mini Boss", "kazeMB"),
 ];
 
-pub static STAGES_WINDFALL: &'static [Stage; 8] = &[
+pub static STAGES_WINDFALL: &[Stage; 8] = &[
     ("Game Room", "Kaisen"),
     ("School Of Joy", "Nitiyou"),
     ("Bomb Shop", "Obombh"),
@@ -261,7 +261,7 @@ pub static STAGES_WINDFALL: &'static [Stage; 8] = &[
     ("Jail", "Pnezumi"),
 ];
 
-pub static SEA_ROOMS: &'static [&'static str; 49] = &[
+pub static SEA_ROOMS: &[&str; 49] = &[
     "Forsaken Fortress",
     "Star Island",
     "Northern Fairy Island",

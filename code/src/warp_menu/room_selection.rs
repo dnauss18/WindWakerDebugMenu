@@ -7,7 +7,7 @@ use libtww::warping::Warp;
 use utils::*;
 use visible;
 
-pub static STAGE: &'static str = "sea";
+pub static STAGE: &str = "sea";
 
 use super::consts::*;
 
@@ -16,7 +16,7 @@ static mut scroll_offset: usize = 0;
 
 pub fn transition_into() {}
 
-pub fn scroll_move_cursor(array: &'static [&'static str]) {
+pub fn scroll_move_cursor(array: &[&str]) {
     if controller::DPAD_UP.is_pressed() && unsafe { cursor } > 0 {
         unsafe {
             cursor -= 1;
@@ -52,7 +52,7 @@ pub fn render() {
         return;
     }
 
-    let rooms: &'static [&'static str] = match STAGE {
+    let rooms: &[&str] = match STAGE {
         "sea" => SEA_ROOMS,
         _ => &["No Data"],
     };
