@@ -16,26 +16,12 @@ You can do so by installing the PowerPC target through rustup:
 rustup target add powerpc-unknown-linux-gnu
 ```
 
-We'll need to target the GameCube specifically, so we'll need a special linker which you can get by installing [DevkitPPC](http://devkitpro.org/wiki/Getting_Started/devkitPPC).
+Now that we have the whole toolchain, you will need to specify the path of your version of Wind Waker (GZLJ01) in the `RomHack.toml`. Alternatively you can copy the game into the main folder as `gzlj01.iso`.
 
-Now that we have the whole toolchain, you will need to unpack your version of Wind Waker (GZLJ01) into the folder called ```game```.
-You can use the [GameCube ISO Tool](http://www.wiibackupmanager.co.uk/gcit.html) for that.
-The ```game``` folder should contain the following folders if done correctly: ```root``` and ```sys```.
-In the ```sys``` folder you can find a ```main.dol```.
-This is the main executable of the game and will be the one we compile into.
-We'll need to create a backup of the file called ```original.dol``` that you put directly into the game folder.
+To compile the Debug Menu, execute the following command:
 
-The folder structure should look like this now:
+```
+cargo run -p compiler --release
+```
 
- - game
-   - sys
-   - root
-   - original.dol
- - libtww
- - patcher
- - src
- - ...
-
-The compiled executable will be located in the ```game/sys/``` folder.
-
-You can use the GameCube ISO Tool or run `make iso` to convert this into an ISO or directly boot up the folder with Dolphin.
+The compiled ISO is now available in the `target` folder. You can change this location in the `RomHack.toml`.
