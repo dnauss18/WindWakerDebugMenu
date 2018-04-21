@@ -1,3 +1,11 @@
+[info]
+game-name = "Wind Waker: Debug Menu"
+full-game-name = "Wind Waker: Debug Menu"
+developer-name = "Speedrun Community"
+full-developer-name = "Wind Waker Speedrun Community"
+description = "Allows for more control over the game"
+image = "banner.png"
+
 [src]
 iso = "gzlj01.iso"
 src = "code"
