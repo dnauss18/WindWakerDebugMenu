@@ -1,6 +1,6 @@
 use core::fmt::Write;
-use libtww::game::Console;
 use libtww::game::actor::ActorTemplate;
+use libtww::game::Console;
 // use libtww::game::actor;
 use libtww::Link;
 // use libtww::system;
@@ -22,7 +22,7 @@ static mut y_offset: f32 = 0.0;
 
 type Actor = (&'static str, &'static str);
 
-static CATEGORIES: [&'static str; 18] = [
+static CATEGORIES: [&str; 18] = [
     "Breakables",
     "Doors",
     "Dungeon Bosses",
@@ -43,7 +43,7 @@ static CATEGORIES: [&'static str; 18] = [
     "Uncategorized",
 ];
 
-static BREAKABLES: &'static [Actor; 9] = &[
+static BREAKABLES: &[Actor; 9] = &[
     ("Sign", "Kanban"),
     ("Breakable Cup", "MKoppu"),
     ("Breakable Plate", "MOsara"),
@@ -55,9 +55,9 @@ static BREAKABLES: &'static [Actor; 9] = &[
     ("Large Pot", "ootubo1"),
 ];
 
-static DOORS: &'static [Actor; 2] = &[("KNOB00D", "KNOB00D"), ("KNOB01D", "KNOB01D")];
+static DOORS: &[Actor; 2] = &[("KNOB00D", "KNOB00D"), ("KNOB01D", "KNOB01D")];
 
-static DUNGEON_BOSSES: &'static [Actor; 6] = &[
+static DUNGEON_BOSSES: &[Actor; 6] = &[
     ("Kalle Demos", "Bkm"),
     ("Gohdan", "Bst"),
     ("Gohma", "Btd"),
@@ -66,7 +66,7 @@ static DUNGEON_BOSSES: &'static [Actor; 6] = &[
     ("Jalhalla", "big_pow"),
 ];
 
-static ENEMY_NPC: &'static [Actor; 32] = &[
+static ENEMY_NPC: &[Actor; 32] = &[
     ("Kargaroc", "Bb"),
     ("Bokoblin", "Bk"),
     ("Quill", "Bm1"),
@@ -101,13 +101,13 @@ static ENEMY_NPC: &'static [Actor; 32] = &[
     ("Regular Wizzrobe", "wiz_r"),
 ];
 
-static EXITS_ENTRANCES: &'static [Actor; 3] = &[
+static EXITS_ENTRANCES: &[Actor; 3] = &[
     ("Door (0)", "KNOB00"),
     ("Door (1)", "KNOB01"),
     ("Grotto Entrance", "Pitfall"),
 ];
 
-static FOLIAGE: &'static [Actor; 13] = &[
+static FOLIAGE: &[Actor; 13] = &[
     ("Palm Tree", "Oyashi"),
     ("Flower", "flower"),
     ("flwr17", "flwr17"),
@@ -123,7 +123,7 @@ static FOLIAGE: &'static [Actor; 13] = &[
     ("Small Tree (5)", "swood5"),
 ];
 
-static FRIENDLY_NPC: &'static [Actor; 13] = &[
+static FRIENDLY_NPC: &[Actor; 13] = &[
     ("Sturgeon", "Aj1"),
     ("Grandma", "Ba1"),
     ("Great Fairy", "BigElf"),
@@ -139,7 +139,7 @@ static FRIENDLY_NPC: &'static [Actor; 13] = &[
     ("Crab", "kani"),
 ];
 
-static GAMEPLAY: &'static [Actor; 22] = &[
+static GAMEPLAY: &[Actor; 22] = &[
     ("Attention Grabber", "AttTag"),
     ("Bomb Flower", "BFlower"),
     ("Heart Container (Dungeon Boss Item Drop)", "Bitem"),
@@ -164,7 +164,7 @@ static GAMEPLAY: &'static [Actor; 22] = &[
     ("Pushable Block (1)", "osiBLK1"),
 ];
 
-static LOD_MODELS: &'static [Actor; 49] = &[
+static LOD_MODELS: &[Actor; 49] = &[
     ("Forsaken Fortress", "LOD01"),
     ("Star Island", "LOD02"),
     ("Northern Fairy Isle", "LOD03"),
@@ -216,7 +216,7 @@ static LOD_MODELS: &'static [Actor; 49] = &[
     ("Five-Star Isles", "LOD49"),
 ];
 
-static LARGE_OBJECTS: &'static [Actor; 5] = &[
+static LARGE_OBJECTS: &[Actor; 5] = &[
     ("Stall A", "RotenA"),
     ("Stall B", "RotenB"),
     ("Stall C", "RotenC"),
@@ -224,9 +224,9 @@ static LARGE_OBJECTS: &'static [Actor; 5] = &[
     ("Link Statue (Inside Hyrule Castle)", "YLzou"),
 ];
 
-static MECHANICS: &'static [Actor; 1] = &[("Seed planting spot for Makar", "VmcBS")];
+static MECHANICS: &[Actor; 1] = &[("Seed planting spot for Makar", "VmcBS")];
 
-static OBSTACLE: &'static [Actor; 5] = &[
+static OBSTACLE: &[Actor; 5] = &[
     ("Iron Bars", "Ashut"),
     ("Large Rock", "Ebrock"),
     ("Spike", "Htoge1"),
@@ -234,7 +234,7 @@ static OBSTACLE: &'static [Actor; 5] = &[
     ("Tingle", "Tc"),
 ];
 
-static STORYLINE: &'static [Actor; 6] = &[
+static STORYLINE: &[Actor; 6] = &[
     ("Triangle Island Statue", "Doguu"),
     ("Zephos / Cyclos", "Hr"),
     ("Din Statue", "MegamiD"),
@@ -243,7 +243,7 @@ static STORYLINE: &'static [Actor; 6] = &[
     ("Ganon's Tower 4-Boss Door", "VgnFD"),
 ];
 
-static SWITCHES: &'static [Actor; 9] = &[
+static SWITCHES: &[Actor; 9] = &[
     ("\"All Enemies Killed\" Switch", "ALLdie"),
     ("Switch Buffer (0)", "AND_SW0"),
     ("Switch Buffer (2)", "AND_SW2"),
@@ -255,7 +255,7 @@ static SWITCHES: &'static [Actor; 9] = &[
     ("Tingle C Switch", "agbCSW"),
 ];
 
-static TG_DOORS: &'static [Actor; 12] = &[
+static TG_DOORS: &[Actor; 12] = &[
     ("KNOB00D", "KNOB00D"),
     ("KNOB01D", "KNOB01D"),
     ("KNOB03D", "KNOB03D"),
@@ -270,7 +270,7 @@ static TG_DOORS: &'static [Actor; 12] = &[
     ("Dungeon Locked Door", "keyshut"),
 ];
 
-static TREASURE_CHESTS: &'static [Actor; 20] = &[
+static TREASURE_CHESTS: &[Actor; 20] = &[
     ("Treasure Chest", "takara"),
     ("Treasure Chest (2)", "takara2"),
     ("takara3", "takara3"),
@@ -293,7 +293,7 @@ static TREASURE_CHESTS: &'static [Actor; 20] = &[
     ("Treasure CTf", "tkrCTf"),
 ];
 
-static TRIGGERS: &'static [Actor; 10] = &[
+static TRIGGERS: &[Actor; 10] = &[
     ("Event Trigger", "TagEv"),
     ("Hint Trigger", "TagHt"),
     ("Hint Trigger (2)", "TagHt2"),
@@ -306,7 +306,7 @@ static TRIGGERS: &'static [Actor; 10] = &[
     ("Weather Trigger (6)", "kytag6"),
 ];
 
-static UNCATEGORIZED: &'static [Actor; 452] = &[
+static UNCATEGORIZED: &[Actor; 452] = &[
     ("Prison Door", "ATdoor"),
     ("Ac1", "Ac1"),
     ("Old Man Ho Ho", "Ah"),

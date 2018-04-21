@@ -1,6 +1,6 @@
 use core::fmt::Write;
-use libtww::game::Console;
 use libtww::game::flag::*;
+use libtww::game::Console;
 
 use controller;
 use utils::*;
@@ -9,7 +9,7 @@ static mut cursor: usize = 0;
 
 // TODO Synchronize this with possible changes
 
-pub const FLAGS: [(&'static str, Flag); 227] = [
+pub const FLAGS: [(&str, Flag); 227] = [
     (
         "Has seen Helmaroc arriving at Outset",
         HAS_SEEN_HELMAROC_ARRIVING_AT_OUTSET,

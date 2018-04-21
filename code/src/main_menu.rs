@@ -1,6 +1,6 @@
 use core::fmt::Write;
-use libtww::Link;
 use libtww::game::{event, Console};
+use libtww::Link;
 
 use controller;
 use utils::*;
@@ -19,6 +19,7 @@ pub fn render() {
     const MENU_ITEM_CHEAT: usize = 6;
     const MENU_ITEM_SPAWN: usize = 7;
     const MENU_ITEM_QUEST: usize = 8;
+    const MENU_ITEM_MEMORY: usize = 9;
 
     let console = Console::get();
 
@@ -47,6 +48,7 @@ pub fn render() {
         "Cheat Menu",
         "Spawn Menu",
         "Quest Menu",
+        "Memory",
     ];
 
     move_cursor(contents.len(), unsafe { &mut cursor });
@@ -77,6 +79,10 @@ pub fn render() {
             }
             MENU_ITEM_QUEST => {
                 transition(MenuState::QuestMenu);
+                return;
+            }
+            MENU_ITEM_MEMORY => {
+                transition(MenuState::Memory);
                 return;
             }
             _ => {}
