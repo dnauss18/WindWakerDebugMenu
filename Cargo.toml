@@ -1,3 +1,19 @@
-[workspace]
-members = ["libtww-core/compiler"]
-exclude = ["code"]
+[package]
+name = "rom_hack"
+version = "0.1.0"
+authors = ["Christopher Serr <cryze92@gmail.com>"]
+
+[lib]
+name = "rust"
+crate-type = ["staticlib"]
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+lto = true
+
+[dependencies]
+libtww = { path = "libtww-core", features = ["alloc"] }
+lazy_static = { version = "1.0.0", features = ["spin_no_std"] }

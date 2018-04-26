@@ -1,7 +1,8 @@
 #![no_std]
 #![feature(const_fn)]
 #![allow(non_upper_case_globals)]
-// #![deny(warnings)]
+#![feature(lang_items)]
+pub mod lang_items;
 
 extern crate libtww;
 #[macro_use]
