@@ -2,11 +2,10 @@
 #![feature(const_fn)]
 #![feature(panic_implementation)]
 #![allow(non_upper_case_globals)]
-#![feature(lang_items)]
-pub mod lang_items;
 
 extern crate libtww;
-extern crate arrayvec;
+// #[macro_use]
+// extern crate lazy_static;
 
 use libtww::game::Console;
 use libtww::system;
@@ -15,8 +14,8 @@ pub mod cheat_menu;
 pub mod controller;
 pub mod flag_menu;
 pub mod inventory_menu;
+pub mod lang_items;
 pub mod main_menu;
-pub mod memory;
 pub mod mutex;
 pub mod popups;
 pub mod quest_menu;
@@ -25,7 +24,7 @@ pub mod triforce;
 pub mod utils;
 pub mod warp_menu;
 
-use mutex::*;
+// use mutex::*;
 use utils::*;
 
 pub static mut visible: bool = false;
@@ -61,7 +60,6 @@ pub extern "C" fn game_loop() {
             MenuState::SpawnMenu => spawn_menu::render(),
             MenuState::QuestMenu => quest_menu::render(),
             MenuState::Triforce => triforce::render(),
-            MenuState::Memory => memory::render(),
         }
     } else if d_down && rt_down && unsafe { !popups::visible } {
         let console = Console::get();

@@ -4,7 +4,7 @@ use libtww::game::Console;
 use libtww::link::CollisionType;
 use libtww::Link;
 
-use {cheat_menu, controller, flag_menu, inventory_menu, main_menu, memory, quest_menu, spawn_menu,
+use {cheat_menu, controller, flag_menu, inventory_menu, main_menu, quest_menu, spawn_menu,
      triforce, warp_menu};
 
 pub struct ColonWrapper<'a>(pub &'a str, pub &'a str, pub usize);
@@ -44,7 +44,6 @@ pub fn transition(state: MenuState) {
         MenuState::SpawnMenu => spawn_menu::transition_into(),
         MenuState::QuestMenu => quest_menu::transition_into(),
         MenuState::Triforce => triforce::render(),
-        MenuState::Memory => memory::render(),
     }
 }
 
@@ -93,7 +92,6 @@ pub enum MenuState {
     SpawnMenu,
     QuestMenu,
     Triforce,
-    Memory,
 }
 
 pub static mut menu_state: MenuState = MenuState::MainMenu;

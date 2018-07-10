@@ -919,7 +919,9 @@ pub fn render() {
             if pressed_a {
                 let rotation = Link::horizontal_movement_direction();
                 let params = unsafe {
-                    ((param_1 as u32) << 24) | ((param_2 as u32) << 16) | ((param_3 as u32) << 8)
+                    ((param_1 as u32) << 24)
+                        | ((param_2 as u32) << 16)
+                        | ((param_3 as u32) << 8)
                         | (param_4 as u32)
                 };
                 let flag_to_set = unsafe { (flag as u16) << 8 | flag_bit as u16 };
