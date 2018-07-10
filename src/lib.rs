@@ -1,12 +1,12 @@
 #![no_std]
 #![feature(const_fn)]
+#![feature(panic_implementation)]
 #![allow(non_upper_case_globals)]
 #![feature(lang_items)]
 pub mod lang_items;
 
 extern crate libtww;
-#[macro_use]
-extern crate lazy_static;
+extern crate arrayvec;
 
 use libtww::game::Console;
 use libtww::system;

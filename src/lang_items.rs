@@ -1,5 +1,7 @@
-#[cfg_attr(any(target_arch = "powerpc", target_arch = "wasm32"), lang = "panic_fmt")]
+use core::panic::PanicInfo;
+
+#[panic_implementation]
 #[no_mangle]
-pub extern "C" fn panic_fmt() -> ! {
-    loop {}
+pub fn my_panic(_: &PanicInfo) -> ! {
+	loop{}
 }
