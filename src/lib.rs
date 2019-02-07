@@ -1,8 +1,7 @@
 #![no_std]
-#![feature(const_fn)]
-#![feature(panic_implementation)]
 #![allow(non_upper_case_globals)]
 
+extern crate gcn;
 extern crate libtww;
 // #[macro_use]
 // extern crate lazy_static;
@@ -14,7 +13,6 @@ pub mod cheat_menu;
 pub mod controller;
 pub mod flag_menu;
 pub mod inventory_menu;
-pub mod lang_items;
 pub mod main_menu;
 pub mod mutex;
 pub mod popups;

@@ -16,4 +16,5 @@ lto = true
 
 [dependencies]
 libtww = { path = "libtww-core" }
+gcn = { git = "https://github.com/CryZe/gcn", features = ["panic"], rev = "20204290fb1073bce9ec4b7b1473ece3d08a337d" }
 lazy_static = { version = "1.0.0", features = ["spin_no_std"] }
