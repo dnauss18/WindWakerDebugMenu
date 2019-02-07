@@ -1,4 +1,4 @@
-use libtww::game::controller;
+use libtww::game::gamepad;
 use libtww::system;
 
 use visible as debug_menu_visible;
@@ -37,18 +37,18 @@ impl Button {
 }
 
 static mut button_states: [ButtonState; 12] = [
-    ButtonState::new(controller::DPAD_LEFT),
-    ButtonState::new(controller::DPAD_RIGHT),
-    ButtonState::new(controller::DPAD_DOWN),
-    ButtonState::new(controller::DPAD_UP),
-    ButtonState::new(controller::Z),
-    ButtonState::new(controller::R),
-    ButtonState::new(controller::L),
-    ButtonState::new(controller::A),
-    ButtonState::new(controller::B),
-    ButtonState::new(controller::X),
-    ButtonState::new(controller::Y),
-    ButtonState::new(controller::START),
+    ButtonState::new(gamepad::DPAD_LEFT),
+    ButtonState::new(gamepad::DPAD_RIGHT),
+    ButtonState::new(gamepad::DPAD_DOWN),
+    ButtonState::new(gamepad::DPAD_UP),
+    ButtonState::new(gamepad::Z),
+    ButtonState::new(gamepad::R),
+    ButtonState::new(gamepad::L),
+    ButtonState::new(gamepad::A),
+    ButtonState::new(gamepad::B),
+    ButtonState::new(gamepad::X),
+    ButtonState::new(gamepad::Y),
+    ButtonState::new(gamepad::START),
 ];
 
 struct ButtonState {
@@ -86,8 +86,8 @@ pub extern "C" fn read_controller() -> u32 {
         }
     }
     if unsafe { debug_menu_visible } {
-        controller::set_buttons_down(0x0);
-        controller::set_buttons_pressed(0x0);
+        gamepad::set_buttons_down(0x0);
+        gamepad::set_buttons_pressed(0x0);
         system::memory::write::<u16>(0x803E0D42, 0x0);
         system::memory::write::<u16>(0x803E0CF8, 0x0);
     }
