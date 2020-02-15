@@ -16,6 +16,7 @@ panic = "abort"
 lto = true
 
 [dependencies]
-libtww = { git = "https://github.com/CryZe/libtww-core" }
+libtww = { git = "https://github.com/CryZe/libtww-core", features = ["alloc"] }
 gcn = { git = "https://github.com/CryZe/gcn", features = ["panic"] }
 lazy_static = { version = "1.0.0", features = ["spin_no_std"] }
+futures-util = { version = "0.3.4", default-features = false }

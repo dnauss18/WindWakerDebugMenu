@@ -1,3 +1,4 @@
+#![feature(alloc_error_handler)]
 #![no_std]
 #![allow(non_upper_case_globals)]
 
@@ -27,9 +28,72 @@ use utils::*;
 
 pub static mut visible: bool = false;
 
+extern crate alloc;
+
+#[global_allocator]
+static ALLOC: libtww::Alloc = libtww::Alloc;
+
+#[cfg(target_arch = "powerpc")]
+#[alloc_error_handler]
+fn alloc_error(_: core::alloc::Layout) -> ! {
+    panic!("Failed allocating")
+}
+
+extern crate futures_util;
+
+pub static mut the_future: core::mem::MaybeUninit<
+    core::pin::Pin<alloc::boxed::Box<dyn core::future::Future<Output = ()>>>,
+> = core::mem::MaybeUninit::uninit();
+
+use core::future::Future;
+use futures_util::{
+    future::{self, FutureExt},
+    stream::{self, StreamExt},
+};
+use libtww::{futures::*, game::gamepad};
+
+// async fn delete_hearts() -> ! {
+//     loop {
+//         gcn::report!("Deleting heart");
+//         libtww::Link::get().heart_quarters -= 1;
+//         delay_for(15).await;
+//     }
+// }
+
+// async fn future_stuff() {
+//     buttons_pressed(gamepad::X).await;
+//     gcn::report!("Pressed X");
+//     delay_for(30).await;
+//     gcn::report!("Beginning to delete hearts");
+//     future::select(delete_hearts(), buttons_pressed(gamepad::X)).await;
+//     gcn::report!("Cancelled");
+// }
+
+fn future_stuff() -> impl Future<Output = ()> {
+    buttons_pressed(gamepad::X)
+        .then(|_| {
+            gcn::report!("Pressed X");
+            delay_for(30)
+        })
+        .then(|_| {
+            gcn::report!("Beginning to delete hearts");
+            future::select(
+                stream::iter(0..).for_each(|_| {
+                    gcn::report!("Deleting heart");
+                    libtww::Link::get().heart_quarters -= 1;
+                    delay_for(15)
+                }),
+                buttons_pressed(gamepad::X).map(|_| {
+                    gcn::report!("Cancelled");
+                }),
+            )
+            .map(drop)
+        })
+}
+
 #[no_mangle]
 pub extern "C" fn init() {
-    // Call overriden instruction
+    // Call overridden instruction
     system::cdyl_init_async();
 
     let console = Console::get();
@@ -40,10 +104,19 @@ pub extern "C" fn init() {
     console.font_scale_y *= 1.2;
     console.background_color.a = 150;
     console.clear();
+
+    unsafe {
+        core::ptr::write(
+            the_future.as_mut_ptr(),
+            alloc::boxed::Box::pin(future_stuff().fuse()),
+        );
+    }
 }
 
 #[no_mangle]
 pub extern "C" fn game_loop() {
+    unsafe { libtww::futures::run((&mut *the_future.as_mut_ptr()).as_mut()) };
+
     cheat_menu::apply_cheats();
     let d_down = controller::DPAD_DOWN.is_pressed();
     let rt_down = controller::R.is_down();
