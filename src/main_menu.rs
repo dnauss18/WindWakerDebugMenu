@@ -2,9 +2,9 @@ use core::fmt::Write;
 use libtww::game::{event, Console};
 use libtww::Link;
 
-use controller;
-use utils::*;
-use visible;
+use crate::controller;
+use crate::utils::*;
+use crate::visible;
 
 static mut cursor: usize = 0;
 

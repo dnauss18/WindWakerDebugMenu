@@ -3,8 +3,8 @@ use libtww::game::Console;
 use libtww::link::inventory::Inventory;
 use libtww::link::item::*;
 
-use controller;
-use utils::*;
+use crate::controller;
+use crate::utils::*;
 
 static mut cursor: usize = 0;
 

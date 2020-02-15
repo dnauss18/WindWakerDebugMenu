@@ -1,11 +1,11 @@
 use super::*;
-use controller;
+use crate::controller;
+use crate::utils::*;
+use crate::visible;
 use core::fmt::Write;
 use libtww::game::Console;
 use libtww::warping::fadeout::FadeOut;
 use libtww::warping::Warp;
-use utils::*;
-use visible;
 
 pub static STAGE: &str = "sea";
 

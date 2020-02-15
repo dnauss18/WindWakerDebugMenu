@@ -5,7 +5,7 @@ use libtww::system::get_frame_count;
 use libtww::system::memory::read;
 use libtww::Addr;
 
-use flag_menu::FLAGS;
+use crate::flag_menu::FLAGS;
 
 static mut global_flags_cache: [u8; 64] = [0; 64];
 static mut end_frame: u32 = 0;

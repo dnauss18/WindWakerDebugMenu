@@ -3,8 +3,8 @@ use libtww::game::Console;
 use libtww::system;
 use libtww::Link;
 
-use controller;
-use utils::*;
+use crate::controller;
+use crate::utils::*;
 
 static mut cursor: usize = 0;
 static mut scroll_offset: usize = 0;

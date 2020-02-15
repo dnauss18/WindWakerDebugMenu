@@ -2,8 +2,8 @@ use core::fmt::Write;
 use libtww::game::Console;
 use libtww::link::{pearl, triforce};
 
-use controller;
-use utils::*;
+use crate::controller;
+use crate::utils::*;
 
 static mut cursor: usize = 0;
 

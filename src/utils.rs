@@ -4,12 +4,14 @@ use libtww::game::Console;
 use libtww::link::CollisionType;
 use libtww::Link;
 
-use {cheat_menu, controller, flag_menu, inventory_menu, main_menu, quest_menu, spawn_menu,
-     triforce, warp_menu};
+use crate::{
+    cheat_menu, controller, flag_menu, inventory_menu, main_menu, quest_menu, spawn_menu, triforce,
+    warp_menu,
+};
 
 pub struct ColonWrapper<'a>(pub &'a str, pub &'a str, pub usize);
 
-impl<'a> fmt::Display for ColonWrapper<'a> {
+impl fmt::Display for ColonWrapper<'_> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}:", self.0)?;
         if self.0.len() + 1 < self.2 {

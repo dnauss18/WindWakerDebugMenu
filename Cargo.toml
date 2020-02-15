@@ -2,6 +2,7 @@
 name = "rom_hack"
 version = "0.1.0"
 authors = ["Christopher Serr <cryze92@gmail.com>"]
+edition = "2018"
 
 [lib]
 name = "rust"
@@ -15,6 +16,6 @@ panic = "abort"
 lto = true
 
 [dependencies]
-libtww = { git = "https://github.com/CryZe/libtww-core", rev = "6973cd7649b05c24388331c8e5f584279fa65754" }
-gcn = { git = "https://github.com/CryZe/gcn", features = ["panic"], rev = "20204290fb1073bce9ec4b7b1473ece3d08a337d" }
+libtww = { git = "https://github.com/CryZe/libtww-core" }
+gcn = { git = "https://github.com/CryZe/gcn", features = ["panic"] }
 lazy_static = { version = "1.0.0", features = ["spin_no_std"] }

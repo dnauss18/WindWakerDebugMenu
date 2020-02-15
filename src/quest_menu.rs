@@ -9,8 +9,8 @@ use libtww::Link;
 // TODO: Power Bracelet
 
 /////
-use controller;
-use utils::*;
+use crate::controller;
+use crate::utils::*;
 
 static mut cursor: usize = 0;
 static mut scroll_offset: usize = 0;
@@ -221,51 +221,67 @@ fn get_item_text<'a>(index: usize) -> &'a str {
     match index {
         MENU_ITEM_SWORD => item_id_to_str(link.sword_id),
         MENU_ITEM_SHIELD => item_id_to_str(link.shield_id),
-        MENU_ITEM_POWER_BRACELETS => if quest_items.has_power_bracelets {
-            "Power Bracelets"
-        } else {
-            ""
-        },
+        MENU_ITEM_POWER_BRACELETS => {
+            if quest_items.has_power_bracelets {
+                "Power Bracelets"
+            } else {
+                ""
+            }
+        }
         MENU_ITEM_HEROS_CHARM => match quest_items.heros_charm {
             HerosCharm::None => "",
             HerosCharm::Disabled => "Disabled",
             HerosCharm::Enabled => "Enabled",
         },
-        MENU_ITEM_PIRATES_CHARM => if quest_items.has_pirates_charm {
-            "Pirate's Charm"
-        } else {
-            ""
-        },
-        MENU_ITEM_WINDS_REQUIEM => if song::WINDS_REQUIEM.is_unlocked() {
-            "Wind's Requiem"
-        } else {
-            ""
-        },
-        MENU_ITEM_BALLAD_OF_GALES => if song::BALLAD_OF_GALES.is_unlocked() {
-            "Ballad of Gales"
-        } else {
-            ""
-        },
-        MENU_ITEM_COMMAND_MELODY => if song::COMMAND_MELODY.is_unlocked() {
-            "Command Melody"
-        } else {
-            ""
-        },
-        MENU_ITEM_EARTH_GODS_LYRIC => if song::EARTH_GODS_LYRIC.is_unlocked() {
-            "Earth God's Lyric"
-        } else {
-            ""
-        },
-        MENU_ITEM_WIND_GODS_ARIA => if song::WIND_GODS_ARIA.is_unlocked() {
-            "Wind God's Aria"
-        } else {
-            ""
-        },
-        MENU_ITEM_SONG_OF_PASSING => if song::SONG_OF_PASSING.is_unlocked() {
-            "Song of Passing"
-        } else {
-            ""
-        },
+        MENU_ITEM_PIRATES_CHARM => {
+            if quest_items.has_pirates_charm {
+                "Pirate's Charm"
+            } else {
+                ""
+            }
+        }
+        MENU_ITEM_WINDS_REQUIEM => {
+            if song::WINDS_REQUIEM.is_unlocked() {
+                "Wind's Requiem"
+            } else {
+                ""
+            }
+        }
+        MENU_ITEM_BALLAD_OF_GALES => {
+            if song::BALLAD_OF_GALES.is_unlocked() {
+                "Ballad of Gales"
+            } else {
+                ""
+            }
+        }
+        MENU_ITEM_COMMAND_MELODY => {
+            if song::COMMAND_MELODY.is_unlocked() {
+                "Command Melody"
+            } else {
+                ""
+            }
+        }
+        MENU_ITEM_EARTH_GODS_LYRIC => {
+            if song::EARTH_GODS_LYRIC.is_unlocked() {
+                "Earth God's Lyric"
+            } else {
+                ""
+            }
+        }
+        MENU_ITEM_WIND_GODS_ARIA => {
+            if song::WIND_GODS_ARIA.is_unlocked() {
+                "Wind God's Aria"
+            } else {
+                ""
+            }
+        }
+        MENU_ITEM_SONG_OF_PASSING => {
+            if song::SONG_OF_PASSING.is_unlocked() {
+                "Song of Passing"
+            } else {
+                ""
+            }
+        }
         _ => "",
     }
 }

@@ -1,13 +1,13 @@
+use crate::visible;
 use core::fmt::Write;
 use libtww::game::Console;
 use libtww::warping::entrance::Entrance;
 use libtww::warping::fadeout::FadeOut;
 use libtww::warping::warp::Warp;
-use visible;
 
 use super::*;
-use controller;
-use utils::*;
+use crate::controller;
+use crate::utils::*;
 
 use super::consts::*;
 

@@ -3,8 +3,8 @@ use libtww::game::Console;
 
 use super::stage_selection::stage_category;
 use super::*;
-use controller;
-use utils::*;
+use crate::controller;
+use crate::utils::*;
 
 use super::consts::*;
 

@@ -1,7 +1,7 @@
 use libtww::game::gamepad;
 use libtww::system;
 
-use visible as debug_menu_visible;
+use crate::visible as debug_menu_visible;
 
 pub const DPAD_LEFT: Button = Button(0);
 pub const DPAD_RIGHT: Button = Button(1);
@@ -52,15 +52,15 @@ static mut button_states: [ButtonState; 12] = [
 ];
 
 struct ButtonState {
-    button: u16,
+    button: gamepad::Buttons,
     pressed_frame: u32,
     is_down: bool,
 }
 
 impl ButtonState {
-    const fn new(button: u16) -> Self {
+    const fn new(button: gamepad::Buttons) -> Self {
         ButtonState {
-            button: button,
+            button,
             pressed_frame: 0xFFFFFFFF,
             is_down: false,
         }
@@ -79,15 +79,15 @@ pub extern "C" fn read_controller() -> u32 {
         buttons_pressed = buttons_down & (0xFFFF ^ buttons_down_last_frame);
 
         for state in &mut button_states {
-            state.is_down = state.button & buttons_down != 0;
-            if state.button & buttons_pressed != 0 {
+            state.is_down = state.button.bits() & buttons_down != 0;
+            if state.button.bits() & buttons_pressed != 0 {
                 state.pressed_frame = system::get_frame_count() + 1;
             }
         }
     }
     if unsafe { debug_menu_visible } {
-        gamepad::set_buttons_down(0x0);
-        gamepad::set_buttons_pressed(0x0);
+        gamepad::set_buttons_down(gamepad::Buttons::empty());
+        gamepad::set_buttons_pressed(gamepad::Buttons::empty());
         system::memory::write::<u16>(0x803E0D42, 0x0);
         system::memory::write::<u16>(0x803E0CF8, 0x0);
     }
