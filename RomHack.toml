@@ -1,14 +1,13 @@
 [info]
 game-name = "Wind Waker: Debug Menu"
 full-game-name = "Wind Waker: Debug Menu"
-developer-name = "Speedrun Community"
+developer-name = "The Wind Waker Community"
 full-developer-name = "Wind Waker Speedrun Community"
 description = "Allows for more control over the game"
 image = "banner.png"
 
 [src]
 iso = "gzlj01.iso"
-link = ["target/powerpc-unknown-linux-gnu/release/librust.a"]
 patch = "src/patch.asm"
 map = "maps/framework.map"
 
@@ -17,5 +16,5 @@ map = "target/framework.map"
 iso = "target/rom_hack.iso"
 
 [link]
-entries = ["init", "game_loop", "read_controller"]
+entries = ["init", "game_loop", "read_controller", "draw"]
 base = "0x8040_1000"
