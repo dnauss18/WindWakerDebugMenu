@@ -13,8 +13,8 @@ map = "maps/framework.map"
 
 [build]
 map = "target/framework.map"
-iso = "target/rom_hack.iso"
+iso = "target/debug_menu.iso"
 
 [link]
-entries = ["init", "game_loop", "read_controller", "draw"]
+entries = ["game_loop", "read_controller", "draw"]
 base = "0x8040_1000"

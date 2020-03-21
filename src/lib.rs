@@ -1,8 +1,7 @@
 #![no_std]
 #![allow(non_upper_case_globals)]
 
-use libtww::game::Console;
-use libtww::system;
+use libtww::{game::Console, system::custom_game_loop};
 
 use gcn_fonts::prelude::*;
 
@@ -36,10 +35,7 @@ unsafe fn get_state() -> &'static mut State {
 }
 
 #[no_mangle]
-pub extern "C" fn init() {
-    // Call overridden instruction
-    system::cdyl_init_async();
-
+pub extern "C" fn game_loop() -> ! {
     let console = Console::get();
     console.line_count = 32;
     console.x = 0;
@@ -48,27 +44,26 @@ pub extern "C" fn init() {
     console.font_scale_y *= 1.2;
     console.background_color.a = 150;
     console.clear();
-}
 
-#[no_mangle]
-pub extern "C" fn game_loop() {
-    cheat_menu::apply_cheats();
-    let d_down = controller::DPAD_DOWN.is_pressed();
-    let rt_down = controller::R.is_down();
-    let console = Console::get();
+    custom_game_loop(|| {
+        cheat_menu::apply_cheats();
+        let d_down = controller::DPAD_DOWN.is_pressed();
+        let rt_down = controller::R.is_down();
+        let console = Console::get();
 
-    if unsafe { visible } {
-        console.background_color.a = 150;
-        utils::render();
-    } else if d_down && rt_down && unsafe { !popups::visible } {
-        console.visible = true;
-        unsafe {
-            visible = true;
+        if unsafe { visible } {
+            console.background_color.a = 150;
+            utils::render();
+        } else if d_down && rt_down && unsafe { !popups::visible } {
+            console.visible = true;
+            unsafe {
+                visible = true;
+            }
+        } else {
+            // Only check popups if the Debug Menu is not open
+            popups::check_global_flags();
         }
-    } else {
-        // Only check popups if the Debug Menu is not open
-        popups::check_global_flags();
-    }
+    })
 }
 
 #[no_mangle]
