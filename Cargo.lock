@@ -191,7 +191,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "libtww"
 version = "0.1.0"
-source = "git+https://github.com/CryZe/libtww-core#91b45e6d7797683105dade26a8c229e35b0dcf79"
+source = "git+https://github.com/CryZe/libtww-core#4ae96e906b1595f63f8878d18c421094df519c8a"
 dependencies = [
  "arrayvec 0.4.12 (registry+https://github.com/rust-lang/crates.io-index)",
  "bitflags 1.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
