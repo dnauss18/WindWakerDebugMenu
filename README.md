@@ -50,3 +50,4 @@ map = "target/framework.map"
 iso = "<path-to/new-iso>"
 ...
 ```
+git submodule update --init
